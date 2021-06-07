@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using SweetSavory.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SweetSavory.Controllers
 {
@@ -22,19 +23,6 @@ namespace SweetSavory.Controllers
       return View(model);
     }
 
-    public ActionResult Create()
-    {
-      return View();
-    }
-
-    [HttpPost]
-    public ActionResult Create(Flavor flavor)
-    {
-      _db.Flavors.Add(flavor);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
-    }
-
     public ActionResult Details(int id)
     {
       var thisFlavor = _db.Flavors
@@ -43,12 +31,30 @@ namespace SweetSavory.Controllers
           .FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
+
+    [Authorize]
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [Authorize]
+    [HttpPost]
+    public ActionResult Create(Flavor flavor)
+    {
+      _db.Flavors.Add(flavor);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    [Authorize]
     public ActionResult Edit(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult Edit(Flavor flavor)
     {
@@ -56,13 +62,16 @@ namespace SweetSavory.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    [Authorize]
     public ActionResult AddTreat(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
-      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Title");
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
       return View(thisFlavor);
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult AddTreat(Flavor flavor, int TreatId)
     {
@@ -74,12 +83,14 @@ namespace SweetSavory.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize]
     public ActionResult Delete(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
 
+    [Authorize]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {

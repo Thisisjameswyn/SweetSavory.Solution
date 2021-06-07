@@ -8,19 +8,19 @@
 <h1>Treats</h1>
 
 
-<h1>Treats for @User.Identity.Name</h1>
+<h4>Treats stored here:</h4>
 
 @if (Model.Any())
 {
   @foreach (Treat treat in Model)
   {
-    <p>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</p>
+    <h3>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</h3>
   }
-} 
+}
 else
 {
   <h3>No treats have been added yet!</h3>
 }
 
-<hr/>
+<hr />
 <p>@Html.ActionLink("Add new Treat", "Create")</p>

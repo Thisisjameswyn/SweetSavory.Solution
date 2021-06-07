@@ -2,7 +2,35 @@
   Layout = "_Layout";
 }
 
+@using SweetSavory.Models;
+@model dynamic;
+
 <h1>Welcome to the Sweet and Savory.....Thing!</h1>
+
+<h4>Treats stored here:</h4>
+
+@if (@Model.Treats.Count == 0)
+{
+  <h3>No treats have been added!</h3>
+}
+
+@foreach (Treat treat in Model.Treats)
+{
+  <h3>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</h3>
+}
+
+<h4>Flavors on display here:</h4>
+
+@if (@Model.Flavors.Count == 0)
+{
+  <h3>No flavors have been added!</h3>
+}
+
+@foreach (Flavor flavor in Model.Flavors)
+{
+  <h3>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId })</h3>
+}
+<br>
 <p>@Html.ActionLink("See all Treats", "Index", "Treats")</p>
 <p>@Html.ActionLink("See all Flavors", "Index", "Flavors")</p>
 <p>@Html.ActionLink("Create an account", "Index", "Account")</p>
