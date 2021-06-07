@@ -6,7 +6,7 @@
 
 ## Description
 
-A user can create an account and add to a list of consoles and games. A user can also assign a game to multiple consoles, or vice versa.
+A user can create an account and add to a list of flavors and treats. A user can also assign a treat to multiple flavors, or vice versa.
 
 ## Technologies Used
 
