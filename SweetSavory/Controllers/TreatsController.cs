@@ -12,12 +12,12 @@ using System.Security.Claims;
 namespace SweetSavory.Controllers
 {
   [Authorize]
-  public class TreatController : Controller
+  public class TreatsController : Controller
   {
     private readonly SweetSavoryContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public TreatController(UserManager<ApplicationUser> userManager, SweetSavoryContext db)
+    public TreatsController(UserManager<ApplicationUser> userManager, SweetSavoryContext db)
     {
       _userManager = userManager;
       _db = db;
@@ -48,7 +48,7 @@ namespace SweetSavory.Controllers
       _db.SaveChanges();
       if (FlavorId != 0)
       {
-          _db.TreatFlavor.Add(new TreatFlavor() { FlavorId = FlavorId, TreatId = treat.TreatId });
+        _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = FlavorId, TreatId = treat.TreatId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -75,7 +75,7 @@ namespace SweetSavory.Controllers
     {
       if (FlavorId != 0)
       {
-        _db.TreatFlavor.Add(new TreatFlavor() { FlavorId = FlavorId, TreatId = treat.TreatId });
+        _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = FlavorId, TreatId = treat.TreatId });
       }
       _db.Entry(treat).State = EntityState.Modified;
       _db.SaveChanges();
@@ -94,7 +94,7 @@ namespace SweetSavory.Controllers
     {
       if (FlavorId != 0)
       {
-      _db.TreatFlavor.Add(new TreatFlavor() { FlavorId = FlavorId, TreatId = treat.TreatId });
+        _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = FlavorId, TreatId = treat.TreatId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -118,8 +118,8 @@ namespace SweetSavory.Controllers
     [HttpPost]
     public ActionResult DeleteFlavor(int joinId)
     {
-      var joinEntry = _db.TreatFlavor.FirstOrDefault(entry => entry.TreatFlavorId == joinId);
-      _db.TreatFlavor.Remove(joinEntry);
+      var joinEntry = _db.FlavorTreat.FirstOrDefault(entry => entry.FlavorTreatId == joinId);
+      _db.FlavorTreat.Remove(joinEntry);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
