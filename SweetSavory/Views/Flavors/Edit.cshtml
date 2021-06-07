@@ -13,8 +13,8 @@
   @Html.HiddenFor(model => model.FlavorId)
 
   @Html.LabelFor(model => model.Name)
-  @Html.EditorFor(model => model.Name)
+  @Html.EditorFor(model => model.Name, new { Class="textInputBG" })
 
-  <input type="submit" value="Save" />
+  <input type="submit" value="Save" class="btn btn-default"/>
 }
 <p>@Html.ActionLink("Back to list", "Index")</p>
